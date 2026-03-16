@@ -8,6 +8,19 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <!-- Meta Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '923996538446063');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=923996538446063&ev=PageView&noscript=1"/></noscript>
+  <!-- End Meta Pixel -->
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -912,6 +925,201 @@
       .footer-top { grid-template-columns: 1fr; }
       .steps::before { display: none; }
     }
+
+    /* ══════════════════════════
+       LEAD FORM MODAL
+    ══════════════════════════ */
+    .lf-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.78);
+      z-index: 3000;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .lf-overlay.open { display: flex; }
+    .lf-modal {
+      background: white;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 560px;
+      max-height: 92vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.35);
+    }
+    .lf-header {
+      background: var(--black);
+      padding: 26px 32px 22px;
+      border-radius: 16px 16px 0 0;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    .lf-header-label {
+      color: var(--red);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .lf-header h3 {
+      color: white;
+      font-size: 19px;
+      font-weight: 800;
+      line-height: 1.3;
+    }
+    .lf-step-count {
+      color: rgba(255,255,255,0.5);
+      font-size: 12px;
+      margin-top: 4px;
+    }
+    .lf-progress-bar {
+      height: 4px;
+      background: rgba(255,255,255,0.15);
+      margin-top: 14px;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .lf-progress-fill {
+      height: 100%;
+      background: var(--red);
+      border-radius: 2px;
+      transition: width 0.35s ease;
+    }
+    .lf-close {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.55);
+      font-size: 22px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 6px;
+      transition: color .2s;
+    }
+    .lf-close:hover { color: white; }
+    .lf-body { padding: 30px 32px 32px; }
+    .lf-step { display: none; }
+    .lf-step.active { display: block; }
+    .lf-step-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--red);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 8px;
+    }
+    .lf-question {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+    .lf-input {
+      width: 100%;
+      border: 2px solid #e8e8e8;
+      border-radius: 8px;
+      padding: 13px 15px;
+      font-size: 15px;
+      font-family: inherit;
+      color: var(--text);
+      transition: border-color .2s;
+      outline: none;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .lf-input:focus { border-color: var(--red); }
+    .lf-select {
+      width: 100%;
+      border: 2px solid #e8e8e8;
+      border-radius: 8px;
+      padding: 13px 40px 13px 15px;
+      font-size: 15px;
+      font-family: inherit;
+      color: var(--text);
+      background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 14px center;
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .lf-select:focus { border-color: var(--red); }
+    .lf-checkbox-grid { display: flex; flex-direction: column; gap: 10px; }
+    .lf-checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 13px 16px;
+      border: 2px solid #e8e8e8;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+      user-select: none;
+    }
+    .lf-checkbox-item:hover { border-color: #d0d0d0; }
+    .lf-checkbox-item.selected { border-color: var(--red); background: #fff5f5; }
+    .lf-checkbox-item input[type="checkbox"] { display: none; }
+    .cb-box {
+      width: 20px; height: 20px; min-width: 20px;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color .2s, background .2s;
+      flex-shrink: 0;
+    }
+    .lf-checkbox-item.selected .cb-box { border-color: var(--red); background: var(--red); }
+    .cb-box svg { display: none; width: 11px; height: 11px; stroke: white; fill: none; stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; }
+    .lf-checkbox-item.selected .cb-box svg { display: block; }
+    .cb-label { font-size: 15px; font-weight: 500; color: var(--text); }
+    .lf-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 26px;
+    }
+    .lf-btn-back {
+      background: none;
+      border: 2px solid #e8e8e8;
+      border-radius: 8px;
+      padding: 12px 22px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: border-color .2s;
+      white-space: nowrap;
+    }
+    .lf-btn-back:hover { border-color: #bbb; }
+    .lf-btn-next {
+      background: var(--red);
+      border: none;
+      border-radius: 8px;
+      padding: 13px 28px;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: inherit;
+      color: white;
+      cursor: pointer;
+      flex: 1;
+      transition: background .2s;
+    }
+    .lf-btn-next:hover { background: var(--red-dark); }
+    .lf-calendly-wrap { min-height: 650px; }
+    .lf-error { color: var(--red); font-size: 13px; margin-top: -8px; margin-bottom: 10px; display: none; }
+    @media (max-width: 600px) {
+      .lf-body { padding: 22px 20px 24px; }
+      .lf-header { padding: 20px 20px 18px; }
+      .lf-question { font-size: 16px; }
+    }
   </style>
 </head>
 <body>
@@ -935,7 +1143,7 @@
       </div>
       <a href="#ueber-uns">Über uns</a>
       <a href="https://karriere.as-marketing-allgaeu.de/" target="_blank">Karriere</a>
-      <a href="/termin" class="nav-cta">
+      <a href="#" onclick="openLeadForm(event)" class="nav-cta">
         Erstgespräch vereinbaren
         <small>100% unverbindlich</small>
       </a>
@@ -952,7 +1160,7 @@
   <a href="#ergebnisse">Ergebnisse und Referenzen</a>
   <a href="#ueber-uns">Über uns</a>
   <a href="https://karriere.as-marketing-allgaeu.de/" target="_blank">Karriere</a>
-  <a href="/termin" class="nav-cta">Erstgespräch vereinbaren<small>100% unverbindlich</small></a>
+  <a href="#" onclick="openLeadForm(event)" class="nav-cta">Erstgespräch vereinbaren<small>100% unverbindlich</small></a>
 </div>
 
 <!-- ══════════════════════════ HERO ══════════════════════════ -->
@@ -963,10 +1171,7 @@
       <span class="hero-label">Mehr Bewerber. mehr Neukunden. mehr Wachstum.</span>
       <h1>Finden Sie Top-Talente und Kunden dort, wo sie sich am häufigsten aufhalten: in sozialen Netzwerken.</h1>
       <p class="hero-sub">Wir helfen Ihnen, die besten Mitarbeiter über effektive Social-Media-Strategien zu gewinnen und Ihre Arbeitgebermarke zu stärken.</p>
-      <div class="hero-badge">
-        <img src="assets/images/ea7c132d-61fb-4247-9429-da4861398543.jpg" alt="Verifizierte Unternehmensberatung – Staatlich gefördert" />
-      </div>
-      <a href="/termin" class="btn-red">
+      <a href="#" onclick="openLeadForm(event)" class="btn-red">
         Jetzt Erstgespräch vereinbaren
         <small>100% unverbindlich</small>
       </a>
@@ -1097,7 +1302,7 @@
         <img src="assets/images/884bf2cd-0cd6-452a-921f-43efb926ce3e.jpg"
              alt="Mitarbeiter am Arbeitsplatz" />
         <div class="cons-left-btns">
-          <a href="/termin" class="btn-red" style="margin:0;flex:1;justify-content:center;">
+          <a href="#" onclick="openLeadForm(event)" class="btn-red" style="margin:0;flex:1;justify-content:center;">
             Jetzt Erstgespräch vereinbaren
             <small>100 % unverbindlich</small>
           </a>
@@ -1364,25 +1569,6 @@
         </ul>
       </div>
 
-      <!-- 7: BAFA (full-width) -->
-      <div class="service-card" style="grid-column: 1 / -1; display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:center;">
-        <div>
-          <div class="service-title">BAfA-Förderung</div>
-          <div class="service-divider"></div>
-          <p class="service-desc">Unsere Leistungen können staatlich gefördert werden. Mit dem BAfA-Programm erhalten qualifizierte Unternehmen bis zu 80% Zuschuss auf unsere Beratungsleistungen. Nutzen Sie diese Förderung und minimieren Sie Ihre Investition.</p>
-          <ul class="service-list" style="margin-bottom:24px;">
-            <li><span class="rc"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Bis zu 80% staatlicher Zuschuss</li>
-            <li><span class="rc"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Wir unterstützen beim Antrag</li>
-            <li><span class="rc"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Für KMU geeignet</li>
-          </ul>
-          <a href="/bafa-antrag" class="btn-red" style="margin:0;">Jetzt BAfA-Förderung anfragen</a>
-        </div>
-        <div style="text-align:center;">
-          <img src="assets/images/ea7c132d-61fb-4247-9429-da4861398543.jpg" alt="Staatlich gefördert" style="height:120px;width:auto;margin-bottom:16px;" />
-          <div style="font-size:48px;font-weight:900;color:var(--red);line-height:1;">Bis zu 80%</div>
-          <div style="color:rgba(255,255,255,0.7);font-size:16px;margin-top:6px;">staatlicher Zuschuss</div>
-        </div>
-      </div>
 
     </div>
   </div>
@@ -1567,7 +1753,6 @@
           <li><a href="#leistungen">Karriereseiten</a></li>
           <li><a href="#leistungen">Employer Branding</a></li>
           <li><a href="#leistungen">Bewerberdashboard</a></li>
-          <li><a href="/bafa-antrag">BAfA-Förderung</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1579,7 +1764,7 @@
         </ul>
         <h4 style="margin-top:24px;">Direktkontakt</h4>
         <ul class="footer-links">
-          <li><a href="/termin">Erstgespräch buchen</a></li>
+          <li><a href="#" onclick="openLeadForm(event)">Erstgespräch buchen</a></li>
           <li><a href="https://wa.me/491727898180" target="_blank">WhatsApp schreiben</a></li>
         </ul>
       </div>
@@ -1602,6 +1787,141 @@
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
   </svg>
 </a>
+
+<!-- ══════════════════════════ LEAD FORM MODAL ══════════════════════════ -->
+<div class="lf-overlay" id="leadFormOverlay">
+  <div class="lf-modal" id="leadFormModal">
+
+    <!-- Header (sticky) -->
+    <div class="lf-header">
+      <button class="lf-close" onclick="closeLeadForm()" aria-label="Schließen">✕</button>
+      <div class="lf-header-label">Kostenloses Erstgespräch</div>
+      <h3 id="lfHeaderTitle">Jetzt unverbindlich anfragen</h3>
+      <div class="lf-step-count" id="lfStepCount">Schritt 1 von 5</div>
+      <div class="lf-progress-bar">
+        <div class="lf-progress-fill" id="lfProgress" style="width:0%"></div>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="lf-body">
+
+      <!-- Step 1: Firmenname + Name -->
+      <div class="lf-step active" data-step="1">
+        <div class="lf-step-label">Frage 1 von 5</div>
+        <div class="lf-question">Wie heißen Sie und welches Unternehmen vertreten Sie?</div>
+        <input class="lf-input" type="text" id="lf-firmenname" placeholder="Firmenname" autocomplete="organization" />
+        <input class="lf-input" type="text" id="lf-name" placeholder="Ihr Name" autocomplete="name" />
+        <div class="lf-nav">
+          <button class="lf-btn-next" onclick="lfNext(1)">Weiter →</button>
+        </div>
+      </div>
+
+      <!-- Step 2: Mitarbeiterzahl -->
+      <div class="lf-step" data-step="2">
+        <div class="lf-step-label">Frage 2 von 5</div>
+        <div class="lf-question">Wie viele Mitarbeiter hat Ihr Unternehmen?</div>
+        <select class="lf-select" id="lf-mitarbeiter">
+          <option value="">Bitte auswählen …</option>
+          <option value="unter_10">Unter 10</option>
+          <option value="10-20">10 – 20</option>
+          <option value="20-50">20 – 50</option>
+          <option value="50-100">50 – 100</option>
+          <option value="100+">100+</option>
+        </select>
+        <div class="lf-nav">
+          <button class="lf-btn-back" onclick="lfBack(2)">← Zurück</button>
+          <button class="lf-btn-next" onclick="lfNext(2)">Weiter →</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Offene Stellen -->
+      <div class="lf-step" data-step="3">
+        <div class="lf-step-label">Frage 3 von 5</div>
+        <div class="lf-question">Wie viele offene Stellen haben Sie aktuell?</div>
+        <select class="lf-select" id="lf-stellen">
+          <option value="">Bitte auswählen …</option>
+          <option value="1-2">1 – 2</option>
+          <option value="3-5">3 – 5</option>
+          <option value="6-10">6 – 10</option>
+          <option value="10+">Mehr als 10</option>
+        </select>
+        <div class="lf-nav">
+          <button class="lf-btn-back" onclick="lfBack(3)">← Zurück</button>
+          <button class="lf-btn-next" onclick="lfNext(3)">Weiter →</button>
+        </div>
+      </div>
+
+      <!-- Step 4: Gesuchte Positionen -->
+      <div class="lf-step" data-step="4">
+        <div class="lf-step-label">Frage 4 von 5</div>
+        <div class="lf-question">Welche Positionen suchen Sie am dringendsten?</div>
+        <input class="lf-input" type="text" id="lf-positionen" placeholder="z. B. Elektriker, Pflegefachkraft, Vertriebsmitarbeiter …" />
+        <div class="lf-nav">
+          <button class="lf-btn-back" onclick="lfBack(4)">← Zurück</button>
+          <button class="lf-btn-next" onclick="lfNext(4)">Weiter →</button>
+        </div>
+      </div>
+
+      <!-- Step 5: Bisherige Versuche (Multi-Select) -->
+      <div class="lf-step" data-step="5">
+        <div class="lf-step-label">Frage 5 von 5</div>
+        <div class="lf-question">Was haben Sie bisher versucht, um die Stellen zu besetzen?</div>
+        <div class="lf-checkbox-grid">
+          <label class="lf-checkbox-item" onclick="lfToggleCheck(this)">
+            <input type="checkbox" value="stellenportale" />
+            <span class="cb-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span class="cb-label">Stellenportale</span>
+          </label>
+          <label class="lf-checkbox-item" onclick="lfToggleCheck(this)">
+            <input type="checkbox" value="zeitungsanzeigen" />
+            <span class="cb-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span class="cb-label">Zeitungsanzeigen</span>
+          </label>
+          <label class="lf-checkbox-item" onclick="lfToggleCheck(this)">
+            <input type="checkbox" value="headhunter" />
+            <span class="cb-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span class="cb-label">Headhunter / Personalvermittler</span>
+          </label>
+          <label class="lf-checkbox-item" onclick="lfToggleCheck(this)">
+            <input type="checkbox" value="andere_agentur" />
+            <span class="cb-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span class="cb-label">Andere Agentur</span>
+          </label>
+          <label class="lf-checkbox-item" onclick="lfToggleCheck(this)">
+            <input type="checkbox" value="social_media_selbst" />
+            <span class="cb-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span class="cb-label">Social Media selbst</span>
+          </label>
+          <label class="lf-checkbox-item" onclick="lfToggleCheck(this)">
+            <input type="checkbox" value="noch_nichts" />
+            <span class="cb-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span class="cb-label">Noch nichts</span>
+          </label>
+        </div>
+        <div class="lf-nav">
+          <button class="lf-btn-back" onclick="lfBack(5)">← Zurück</button>
+          <button class="lf-btn-next" onclick="lfNext(5)" style="background:var(--green-check);">Termin auswählen →</button>
+        </div>
+      </div>
+
+      <!-- Step 6: Calendly -->
+      <div class="lf-step" data-step="6">
+        <div class="lf-step-label" style="color:var(--green-check);">✓ Fast geschafft!</div>
+        <div class="lf-question" style="font-size:16px;font-weight:700;margin-bottom:16px;">
+          Wählen Sie jetzt Ihren Wunschtermin für das kostenlose Erstgespräch.
+        </div>
+        <div class="lf-calendly-wrap">
+          <div class="calendly-inline-widget"
+               id="calendlyWidget"
+               data-url="https://calendly.com/as-marketing/erstgespraech?hide_gdpr_banner=1&primary_color=e63329"
+               style="min-width:100%;height:650px;"></div>
+        </div>
+      </div>
+
+    </div><!-- /lf-body -->
+  </div><!-- /lf-modal -->
+</div><!-- /lf-overlay -->
 
 <script>
   // Mobile nav
@@ -1634,7 +1954,117 @@
       document.body.style.overflow = '';
     }
   }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVideo(null, true); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      closeVideo(null, true);
+      closeLeadForm();
+    }
+  });
+
+  // ══════════════════════════
+  // LEAD FORM
+  // ══════════════════════════
+  const LF_TOTAL = 5;
+  const LF_TITLES = [
+    'Jetzt unverbindlich anfragen',
+    'Jetzt unverbindlich anfragen',
+    'Jetzt unverbindlich anfragen',
+    'Jetzt unverbindlich anfragen',
+    'Jetzt unverbindlich anfragen',
+    'Termin auswählen'
+  ];
+
+  function openLeadForm(e) {
+    if (e) e.preventDefault();
+    document.getElementById('leadFormOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    lfShowStep(1);
+  }
+
+  function closeLeadForm() {
+    document.getElementById('leadFormOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Close on backdrop click
+  document.getElementById('leadFormOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closeLeadForm();
+  });
+
+  function lfShowStep(n) {
+    document.querySelectorAll('.lf-step').forEach(s => s.classList.remove('active'));
+    const step = document.querySelector('.lf-step[data-step="' + n + '"]');
+    if (step) step.classList.add('active');
+    const pct = Math.min(Math.round((n - 1) / LF_TOTAL * 100), 100);
+    document.getElementById('lfProgress').style.width = pct + '%';
+    document.getElementById('lfHeaderTitle').textContent = LF_TITLES[n - 1] || LF_TITLES[0];
+    if (n <= LF_TOTAL) {
+      document.getElementById('lfStepCount').textContent = 'Schritt ' + n + ' von ' + LF_TOTAL;
+    } else {
+      document.getElementById('lfStepCount').textContent = 'Termin wählen';
+    }
+    document.getElementById('leadFormModal').scrollTop = 0;
+  }
+
+  function lfNext(step) {
+    // Validation
+    if (step === 1) {
+      const firma = document.getElementById('lf-firmenname').value.trim();
+      const name  = document.getElementById('lf-name').value.trim();
+      if (!firma || !name) {
+        alert('Bitte füllen Sie beide Felder aus.');
+        return;
+      }
+      // 🔥 Fire Meta Pixel Lead event when first question is answered
+      if (typeof fbq === 'function') fbq('track', 'Lead');
+    }
+    if (step === 2) {
+      if (!document.getElementById('lf-mitarbeiter').value) {
+        alert('Bitte wählen Sie eine Option.');
+        return;
+      }
+    }
+    if (step === 3) {
+      if (!document.getElementById('lf-stellen').value) {
+        alert('Bitte wählen Sie eine Option.');
+        return;
+      }
+    }
+    if (step === 4) {
+      if (!document.getElementById('lf-positionen').value.trim()) {
+        alert('Bitte geben Sie die gesuchten Positionen ein.');
+        return;
+      }
+    }
+    if (step === 5) {
+      const checked = document.querySelectorAll('.lf-checkbox-item.selected');
+      if (checked.length === 0) {
+        alert('Bitte wählen Sie mindestens eine Option aus.');
+        return;
+      }
+      lfLoadCalendly();
+    }
+    lfShowStep(step + 1);
+  }
+
+  function lfBack(step) {
+    lfShowStep(step - 1);
+  }
+
+  function lfToggleCheck(el) {
+    el.classList.toggle('selected');
+    el.querySelector('input[type="checkbox"]').checked = el.classList.contains('selected');
+  }
+
+  function lfLoadCalendly() {
+    if (!window._calendlyScriptLoaded) {
+      const s = document.createElement('script');
+      s.src = 'https://assets.calendly.com/assets/external/widget.js';
+      s.async = true;
+      document.head.appendChild(s);
+      window._calendlyScriptLoaded = true;
+    }
+  }
 
   // Active nav highlight on scroll
   const sections = document.querySelectorAll('section[id]');
