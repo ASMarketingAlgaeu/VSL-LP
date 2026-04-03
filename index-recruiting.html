@@ -60,7 +60,7 @@
   }
   .vsl-wrap iframe { width:100%; height:100%; border:none; }
 
-  .qualifier { display:inline-block; font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-light); margin-bottom:24px; position:relative; z-index:1; }
+  .qualifier { display:block; font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-light); margin-bottom:24px; position:relative; z-index:1; }
   .cta-main {
     display:inline-flex; align-items:center; gap:10px;
     background:var(--red); color:#fff; font-family:var(--font); font-weight:700; font-size:16px;
@@ -142,11 +142,26 @@
   .t-name { font-weight:700; font-size:14px; color:var(--text); }
   .t-role { font-size:12px; color:var(--text-light); }
 
-  /* ── Cases ── */
-  .cases { padding:100px 0; background:var(--white); border-top:1px solid var(--border); }
-  .cases-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px; margin-top:48px; }
-  .c-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:28px; transition:border-color 0.3s, transform 0.3s, box-shadow 0.3s; }
-  .c-card:hover { border-color:rgba(229,36,40,0.15); transform:translateY(-3px); box-shadow:0 8px 30px rgba(0,0,0,0.06); }
+  /* ── Cases Marquee ── */
+  .cases { padding:100px 0; background:var(--white); border-top:1px solid var(--border); overflow:hidden; }
+  .cases-header { max-width:var(--max-w-wide); margin:0 auto; padding:0 24px; }
+  .marquee-wrap { position:relative; margin-top:48px; }
+  .marquee-wrap::before, .marquee-wrap::after {
+    content:''; position:absolute; top:0; bottom:0; width:80px; z-index:2; pointer-events:none;
+  }
+  .marquee-wrap::before { left:0; background:linear-gradient(to right, var(--white), transparent); }
+  .marquee-wrap::after { right:0; background:linear-gradient(to left, var(--white), transparent); }
+  .marquee-row { display:flex; gap:20px; width:max-content; padding:0 0 20px; }
+  .marquee-row.scroll-left { animation:scrollLeft 45s linear infinite; }
+  .marquee-row.scroll-right { animation:scrollRight 45s linear infinite; }
+  @keyframes scrollLeft { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+  @keyframes scrollRight { 0%{transform:translateX(-50%)} 100%{transform:translateX(0)} }
+  .marquee-row:hover { animation-play-state:paused; }
+  .c-card {
+    flex-shrink:0; width:340px; background:var(--card); border:1px solid var(--border);
+    border-radius:12px; padding:28px; transition:border-color 0.3s, box-shadow 0.3s;
+  }
+  .c-card:hover { border-color:rgba(229,36,40,0.15); box-shadow:0 8px 30px rgba(0,0,0,0.06); }
   .c-name { font-weight:800; font-size:18px; margin-bottom:4px; }
   .c-ind { font-size:12px; color:var(--text-light); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:16px; }
   .c-results { display:flex; flex-direction:column; gap:10px; margin-bottom:16px; }
@@ -334,8 +349,8 @@
   @media(max-width:768px){
     .hero{padding:20px 0 60px;}
     .pillars-grid{grid-template-columns:1fr 1fr;}
-    .cases-grid{grid-template-columns:1fr;}
     .pl{width:32px;}
+    .c-card{width:280px;}
   }
   @media(max-width:480px){ .pillars-grid{grid-template-columns:1fr;} }
 </style>
@@ -488,15 +503,33 @@
 
 <!-- CASES -->
 <section class="cases reveal">
-  <div class="container-wide">
-    <p class="s-label text-center">Ergebnisse</p>
-    <h2 class="s-heading text-center">10 von über 120 Erfolgsgeschichten</h2>
-    <div class="cases-grid">
+  <div class="cases-header text-center">
+    <p class="s-label">Ergebnisse</p>
+    <h2 class="s-heading">10 von über 120 Erfolgsgeschichten</h2>
+  </div>
+  <div class="marquee-wrap">
+    <!-- Row 1 — scrolls left -->
+    <div class="marquee-row scroll-left">
       <div class="c-card"><div class="c-name">Sirio Pharma</div><div class="c-ind">Pharma / Produktion</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>19 Einstellungen in 8 Monaten</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Über 290 Bewerbungen</span></div></div><div class="c-ctx">Schwach besiedelte Region – zuvor mit vielen Maßnahmen erfolglos.</div></div>
       <div class="c-card"><div class="c-name">G. Staehle GmbH</div><div class="c-ind">Logistik / Maschinenbau</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>6+ Logistiker & 3+ Maschineneinrichter in 8 Wochen</span></div></div><div class="c-ctx">Vorherige Agentur lieferte Bewerbungen ohne gewünschte Qualität.</div></div>
       <div class="c-card"><div class="c-name">ROMA KG</div><div class="c-ind">Industrie / Fertigung</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>3+ Anlagenführer + 3+ Servicetechniker</span></div></div><div class="c-ctx">Wachstumsgetrieben – verschiedenste Bereiche zu besetzen.</div></div>
       <div class="c-card"><div class="c-name">Bayerische Zugspitzbahn</div><div class="c-ind">Tourismus / Bergbahn</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>6+ Einstellungen · 130+ Bewerbungen</span></div></div><div class="c-ctx">Maschinisten, Triebfahrzeugführer, Fahrgastbegleiter gesucht.</div></div>
       <div class="c-card"><div class="c-name">Fluckinger Transport</div><div class="c-ind">Transport / Logistik</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>15+ Einstellungen · 12 Mio.+ Impressionen</span></div></div><div class="c-ctx">Starker Wachstumskurs – Auftragsbücher gefüllt.</div></div>
+      <!-- Duplicate for seamless loop -->
+      <div class="c-card"><div class="c-name">Sirio Pharma</div><div class="c-ind">Pharma / Produktion</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>19 Einstellungen in 8 Monaten</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Über 290 Bewerbungen</span></div></div><div class="c-ctx">Schwach besiedelte Region – zuvor mit vielen Maßnahmen erfolglos.</div></div>
+      <div class="c-card"><div class="c-name">G. Staehle GmbH</div><div class="c-ind">Logistik / Maschinenbau</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>6+ Logistiker & 3+ Maschineneinrichter in 8 Wochen</span></div></div><div class="c-ctx">Vorherige Agentur lieferte Bewerbungen ohne gewünschte Qualität.</div></div>
+      <div class="c-card"><div class="c-name">ROMA KG</div><div class="c-ind">Industrie / Fertigung</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>3+ Anlagenführer + 3+ Servicetechniker</span></div></div><div class="c-ctx">Wachstumsgetrieben – verschiedenste Bereiche zu besetzen.</div></div>
+      <div class="c-card"><div class="c-name">Bayerische Zugspitzbahn</div><div class="c-ind">Tourismus / Bergbahn</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>6+ Einstellungen · 130+ Bewerbungen</span></div></div><div class="c-ctx">Maschinisten, Triebfahrzeugführer, Fahrgastbegleiter gesucht.</div></div>
+      <div class="c-card"><div class="c-name">Fluckinger Transport</div><div class="c-ind">Transport / Logistik</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>15+ Einstellungen · 12 Mio.+ Impressionen</span></div></div><div class="c-ctx">Starker Wachstumskurs – Auftragsbücher gefüllt.</div></div>
+    </div>
+    <!-- Row 2 — scrolls right -->
+    <div class="marquee-row scroll-right">
+      <div class="c-card"><div class="c-name">Bischof+Klein</div><div class="c-ind">Verpackung / Industrie</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>10+ Produktionsmitarbeiter eingestellt</span></div></div><div class="c-ctx">Gering besiedelt & starke Konkurrenz – kreative Kampagne nötig.</div></div>
+      <div class="c-card"><div class="c-name">elite Jet Service</div><div class="c-ind">Luftfahrt / Azubis</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>3 Azubis in 30 Tagen eingestellt</span></div></div><div class="c-ctx">Fluggerätemechaniker – unbekannter Beruf, kreativer Recruiting-Ansatz.</div></div>
+      <div class="c-card"><div class="c-name">DAS Private Jets</div><div class="c-ind">Luftfahrt / Sales</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>5 Sales-MA + 1 Camo-Assistent in 2 Wochen</span></div></div><div class="c-ctx">Nischen-Position – über klassische Wege keine Bewerbungen.</div></div>
+      <div class="c-card"><div class="c-name">ETO Gruppe</div><div class="c-ind">Industrie / 2.500 MA</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>4 Einstellungen · 2,9 Mio. Impressionen</span></div></div><div class="c-ctx">Gute Auftragslage erforderte dringend Fachpersonal.</div></div>
+      <div class="c-card"><div class="c-name">Sidla & Schönberger</div><div class="c-ind">Bau / Spezialtiefbau</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>51 Bewerbungen in 21 Tagen</span></div></div><div class="c-ctx">Facharbeiter mit Reisebereitschaft im Süddeutschen Raum gesucht.</div></div>
+      <!-- Duplicate for seamless loop -->
       <div class="c-card"><div class="c-name">Bischof+Klein</div><div class="c-ind">Verpackung / Industrie</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>10+ Produktionsmitarbeiter eingestellt</span></div></div><div class="c-ctx">Gering besiedelt & starke Konkurrenz – kreative Kampagne nötig.</div></div>
       <div class="c-card"><div class="c-name">elite Jet Service</div><div class="c-ind">Luftfahrt / Azubis</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>3 Azubis in 30 Tagen eingestellt</span></div></div><div class="c-ctx">Fluggerätemechaniker – unbekannter Beruf, kreativer Recruiting-Ansatz.</div></div>
       <div class="c-card"><div class="c-name">DAS Private Jets</div><div class="c-ind">Luftfahrt / Sales</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>5 Sales-MA + 1 Camo-Assistent in 2 Wochen</span></div></div><div class="c-ctx">Nischen-Position – über klassische Wege keine Bewerbungen.</div></div>
