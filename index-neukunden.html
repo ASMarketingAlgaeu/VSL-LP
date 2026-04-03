@@ -258,10 +258,22 @@
   .faq-a.open { max-height:500px; padding-bottom:22px; }
 
   /* ── Decide ── */
-  .decide { padding:80px 0; background:var(--bg); border-top:1px solid var(--border); text-align:center; }
-  .decide h2 { font-weight:900; font-size:clamp(26px,4vw,44px); line-height:1.1; margin-bottom:20px; }
-  .decide p { font-size:17px; color:var(--text-mid); max-width:560px; margin:0 auto 40px; line-height:1.65; }
-
+  .decide { padding:100px 0; background:var(--bg); border-top:1px solid var(--border); }
+  .decide-box {
+    background: var(--card-alt); border: 1px solid var(--border); border-radius: 16px;
+    display: flex; gap: 40px; align-items: center; padding: 48px; text-align: left; max-width: 900px; margin: 0 auto;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+  }
+  .decide-text { flex: 1; }
+  .decide-text h2 { font-weight: 900; font-size: clamp(24px, 3vw, 32px); line-height: 1.15; margin-bottom: 20px; letter-spacing:-0.02em; }
+  .decide-text p.d-sub { font-size: 16px; color: var(--text-mid); margin-bottom: 24px; line-height: 1.6; }
+  .decide-text p.d-head { font-weight: 700; font-size: 15px; margin-bottom: 12px; }
+  .decide-list { list-style: none; margin-bottom: 32px; }
+  .decide-list li { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; font-size: 15px; font-weight: 600; color: var(--text); }
+  .decide-list li i { color: var(--red); width: 20px; height: 20px; flex-shrink: 0; }
+  .decide-img { flex: 1; max-width: 380px; display: none; }
+  .decide-img img { width: 100%; border-radius: 12px; object-fit: cover; }
+  
   /* ── Form ── */
   .form-s { padding:0 0 100px; background:var(--bg); }
   .form-c { max-width:580px; margin:0 auto; }
@@ -382,8 +394,13 @@
   .cases-mobile-grid { display:grid; grid-template-columns:1fr; gap:16px; max-width:var(--max-w-wide); margin:0 auto; }
   .cases-mobile .c-card { width:100%; flex-shrink:unset; }
 
+  @media(min-width: 800px){ .decide-img { display: block; } }
+  @media(max-width: 800px){ .decide-box { padding: 32px 24px; flex-direction: column; } }
+
   @media(max-width:768px){
     .hero{padding:20px 0 60px;}
+    h1 { line-height:1.2; letter-spacing:-0.02em; }
+    .hide-mobile { display:none; }
     .pillars-grid{grid-template-columns:1fr 1fr;}
     .pl{width:32px;}
     .marquee-wrap{display:none;}
@@ -400,7 +417,7 @@
     <!-- Placeholder Logo (Please update src path locally) -->
     <img src="assets/images/Logo_ASMarketing_quer (1) (1).png" alt="AS Marketing" class="logo-img" onerror="this.style.display='none'">
     
-    <h1>Planbar Neukunden gewinnen,<br>ohne auf <em>Empfehlungen</em> zu hoffen.</h1>
+    <h1>Planbar Neukunden gewinnen, <br class="hide-mobile">ohne auf <em>Empfehlungen</em> zu hoffen.</h1>
     <div class="vsl-wrap">
       <!-- Wistia VSL (Update embed code to the new B2B Video) -->
       <iframe src="https://fast.wistia.net/embed/iframe/nmiss9h4st?seo=true&videoFoam=false" allow="autoplay; fullscreen" allowfullscreen></iframe>
@@ -466,7 +483,7 @@
         <p>Sie geben Unsummen für analoges Marketing, teure Printanzeigen und Messeauftritte aus, ohne jemals genau tracken zu können, was Ihnen ein neuer Lead eigentlich kostet.</p>
       </div>
       <div class="conseq-card">
-        <div class="conseq-icon"><i data-lucide="users-x"></i></div>
+        <div class="conseq-icon"><i data-lucide="coins"></i></div>
         <h3>Preiskampf & Preisdruck</h3>
         <p>Wer keinen vollen Terminkalender hat, muss jeden Auftrag annehmen. Sie können es sich nicht leisten, schlechte Kunden abzulehnen oder Ihre Preise gesund zu erhöhen.</p>
       </div>
@@ -544,29 +561,61 @@
 <!-- CASES -->
 <section class="cases reveal">
   <div class="cases-header text-center">
-    <p class="s-label">Dokumentierte Erfolge</p>
+    <p class="s-label">Unsere Kundenerfolge</p>
     <h2 class="s-heading">Auszug aus über 120 Erfolgsgeschichten</h2>
   </div>
   <div class="marquee-wrap">
     <!-- Row 1 — scrolls left -->
     <div class="marquee-row scroll-left">
-      <div class="c-card"><div class="c-name">G. Staehle GmbH</div><div class="c-ind">Maschinenbau / Industrie</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Stetiger Fluss an qualifizierten Anfragen</span></div></div><div class="c-ctx">Vorherige Agentur lieferte Leads ohne gewünschte Qualität.</div></div>
-      <div class="c-card"><div class="c-name">Sidla & Schönberger</div><div class="c-ind">Bau / Spezialtiefbau</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>51 B2B-Anfragen in nur 21 Tagen</span></div></div><div class="c-ctx">Hochpreisige Projekte im Süddeutschen Raum gesucht.</div></div>
-      <div class="c-card"><div class="c-name">ROMA KG</div><div class="c-ind">Industrie / Fertigung</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Digitale Sichtbarkeit massiv skaliert</span></div></div><div class="c-ctx">Wachstumsgetrieben – stetiger Bedarf an neuen Marktanteilen.</div></div>
-      <div class="c-card"><div class="c-name">DAS Private Jets</div><div class="c-ind">Luftfahrt / Dienstleistung</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Konstante Sales-Pipeline aufgebaut</span></div></div><div class="c-ctx">Nischen-Angebot – über klassische Wege kaum greifbar.</div></div>
-      
-      <!-- Duplicate for seamless loop -->
-      <div class="c-card"><div class="c-name">G. Staehle GmbH</div><div class="c-ind">Maschinenbau / Industrie</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Stetiger Fluss an qualifizierten Anfragen</span></div></div><div class="c-ctx">Vorherige Agentur lieferte Leads ohne gewünschte Qualität.</div></div>
-      <div class="c-card"><div class="c-name">Sidla & Schönberger</div><div class="c-ind">Bau / Spezialtiefbau</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>51 B2B-Anfragen in nur 21 Tagen</span></div></div><div class="c-ctx">Hochpreisige Projekte im Süddeutschen Raum gesucht.</div></div>
-      <div class="c-card"><div class="c-name">ROMA KG</div><div class="c-ind">Industrie / Fertigung</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Digitale Sichtbarkeit massiv skaliert</span></div></div><div class="c-ctx">Wachstumsgetrieben – stetiger Bedarf an neuen Marktanteilen.</div></div>
-      <div class="c-card"><div class="c-name">DAS Private Jets</div><div class="c-ind">Luftfahrt / Dienstleistung</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Konstante Sales-Pipeline aufgebaut</span></div></div><div class="c-ctx">Nischen-Angebot – über klassische Wege kaum greifbar.</div></div>
+      <!-- Case 1 -->
+      <div class="c-card"><div class="c-name">G. Staehle GmbH & Co. KG</div><div class="c-ind">Maschinenbau / Industrie</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Über 62 B2B-Anfragen in 3 Monaten</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Planbare Auslastung der Produktion</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Senkung der CPL um 40%</span></div></div><div class="c-ctx">Konstanter Strom an hochwertigen B2B-Anfragen.</div></div>
+      <!-- Case 2 -->
+      <div class="c-card"><div class="c-name">DAS Private Jets</div><div class="c-ind">Luftfahrt / Dienstleistung</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Aufbau einer konstanten Sales-Pipeline</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Exklusive Anfragen im High-Ticket-Bereich</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Kontinuierliches Unternehmenswachstum</span></div></div><div class="c-ctx">Umsatzsteigerung durch gezielte Lead-Generierung.</div></div>
+      <!-- Case 3 -->
+      <div class="c-card"><div class="c-name">ROMA KG</div><div class="c-ind">Industrie / Fertigung</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Steigerung der Markenbekanntheit (DACH)</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Signifikanter Anstieg der Website-Besucher</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Aufbau starker Corporate Brand</span></div></div><div class="c-ctx">Steigerung der digitalen Sichtbarkeit.</div></div>
+      <!-- Case 4 -->
+      <div class="c-card"><div class="c-name">Bischof+Klein</div><div class="c-ind">Verpackung / Industrie</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Konstante Generierung qualifizierter Leads</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Digitalisierung des Vertriebsprozesses</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Messbare Umsatzsteigerung</span></div></div><div class="c-ctx">Nachhaltige B2B-Leadgenerierung.</div></div>
+      <!-- Case 5 -->
+      <div class="c-card"><div class="c-name">JURA Gastro</div><div class="c-ind">Gastronomie / B2B</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Leadgenerierung für Kaffeevollautomaten</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Automatisierung der Vorqualifizierung</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Steigerung der Abschlussrate</span></div></div><div class="c-ctx">Effiziente Neukundengewinnung im B2B.</div></div>
+      <!-- Case 6 -->
+      <div class="c-card"><div class="c-name">ETO Gruppe</div><div class="c-ind">Industrie / Technologie</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Über 2,9 Mio. Impressionen</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Signifikante Steigerung der Markenpräsenz</span></div></div><div class="c-ctx">Skalierung der digitalen B2B-Kampagnen.</div></div>
+
+      <!-- Duplicates for seamless loop -->
+      <div class="c-card"><div class="c-name">G. Staehle GmbH & Co. KG</div><div class="c-ind">Maschinenbau / Industrie</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Über 62 B2B-Anfragen in 3 Monaten</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Planbare Auslastung der Produktion</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Senkung der CPL um 40%</span></div></div><div class="c-ctx">Konstanter Strom an hochwertigen B2B-Anfragen.</div></div>
+      <div class="c-card"><div class="c-name">DAS Private Jets</div><div class="c-ind">Luftfahrt / Dienstleistung</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Aufbau einer konstanten Sales-Pipeline</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Exklusive Anfragen im High-Ticket-Bereich</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Kontinuierliches Unternehmenswachstum</span></div></div><div class="c-ctx">Umsatzsteigerung durch gezielte Lead-Generierung.</div></div>
+      <div class="c-card"><div class="c-name">ROMA KG</div><div class="c-ind">Industrie / Fertigung</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Steigerung der Markenbekanntheit (DACH)</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Signifikanter Anstieg der Website-Besucher</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Aufbau starker Corporate Brand</span></div></div><div class="c-ctx">Steigerung der digitalen Sichtbarkeit.</div></div>
+      <div class="c-card"><div class="c-name">Bischof+Klein</div><div class="c-ind">Verpackung / Industrie</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Konstante Generierung qualifizierter Leads</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Digitalisierung des Vertriebsprozesses</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Messbare Umsatzsteigerung</span></div></div><div class="c-ctx">Nachhaltige B2B-Leadgenerierung.</div></div>
+      <div class="c-card"><div class="c-name">JURA Gastro</div><div class="c-ind">Gastronomie / B2B</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Leadgenerierung für Kaffeevollautomaten</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Automatisierung der Vorqualifizierung</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Steigerung der Abschlussrate</span></div></div><div class="c-ctx">Effiziente Neukundengewinnung im B2B.</div></div>
+      <div class="c-card"><div class="c-name">ETO Gruppe</div><div class="c-ind">Industrie / Technologie</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Über 2,9 Mio. Impressionen</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Signifikante Steigerung der Markenpräsenz</span></div></div><div class="c-ctx">Skalierung der digitalen B2B-Kampagnen.</div></div>
+    </div>
+    
+    <!-- Row 2 — scrolls right -->
+    <div class="marquee-row scroll-right">
+      <!-- Reverse Order for variety -->
+      <div class="c-card"><div class="c-name">ETO Gruppe</div><div class="c-ind">Industrie / Technologie</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Über 2,9 Mio. Impressionen</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Signifikante Steigerung der Markenpräsenz</span></div></div><div class="c-ctx">Skalierung der digitalen B2B-Kampagnen.</div></div>
+      <div class="c-card"><div class="c-name">JURA Gastro</div><div class="c-ind">Gastronomie / B2B</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Leadgenerierung für Kaffeevollautomaten</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Automatisierung der Vorqualifizierung</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Steigerung der Abschlussrate</span></div></div><div class="c-ctx">Effiziente Neukundengewinnung im B2B.</div></div>
+      <div class="c-card"><div class="c-name">Bischof+Klein</div><div class="c-ind">Verpackung / Industrie</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Konstante Generierung qualifizierter Leads</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Digitalisierung des Vertriebsprozesses</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Messbare Umsatzsteigerung</span></div></div><div class="c-ctx">Nachhaltige B2B-Leadgenerierung.</div></div>
+      <div class="c-card"><div class="c-name">ROMA KG</div><div class="c-ind">Industrie / Fertigung</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Steigerung der Markenbekanntheit (DACH)</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Signifikanter Anstieg der Website-Besucher</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Aufbau starker Corporate Brand</span></div></div><div class="c-ctx">Steigerung der digitalen Sichtbarkeit.</div></div>
+      <div class="c-card"><div class="c-name">DAS Private Jets</div><div class="c-ind">Luftfahrt / Dienstleistung</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Aufbau einer konstanten Sales-Pipeline</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Exklusive Anfragen im High-Ticket-Bereich</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Kontinuierliches Unternehmenswachstum</span></div></div><div class="c-ctx">Umsatzsteigerung durch gezielte Lead-Generierung.</div></div>
+      <div class="c-card"><div class="c-name">G. Staehle GmbH & Co. KG</div><div class="c-ind">Maschinenbau / Industrie</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Über 62 B2B-Anfragen in 3 Monaten</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Planbare Auslastung der Produktion</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Senkung der CPL um 40%</span></div></div><div class="c-ctx">Konstanter Strom an hochwertigen B2B-Anfragen.</div></div>
+
+      <!-- Duplicates -->
+      <div class="c-card"><div class="c-name">ETO Gruppe</div><div class="c-ind">Industrie / Technologie</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Über 2,9 Mio. Impressionen</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Signifikante Steigerung der Markenpräsenz</span></div></div><div class="c-ctx">Skalierung der digitalen B2B-Kampagnen.</div></div>
+      <div class="c-card"><div class="c-name">JURA Gastro</div><div class="c-ind">Gastronomie / B2B</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Leadgenerierung für Kaffeevollautomaten</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Automatisierung der Vorqualifizierung</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Steigerung der Abschlussrate</span></div></div><div class="c-ctx">Effiziente Neukundengewinnung im B2B.</div></div>
+      <div class="c-card"><div class="c-name">Bischof+Klein</div><div class="c-ind">Verpackung / Industrie</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Konstante Generierung qualifizierter Leads</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Digitalisierung des Vertriebsprozesses</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Messbare Umsatzsteigerung</span></div></div><div class="c-ctx">Nachhaltige B2B-Leadgenerierung.</div></div>
+      <div class="c-card"><div class="c-name">ROMA KG</div><div class="c-ind">Industrie / Fertigung</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Steigerung der Markenbekanntheit (DACH)</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Signifikanter Anstieg der Website-Besucher</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Aufbau starker Corporate Brand</span></div></div><div class="c-ctx">Steigerung der digitalen Sichtbarkeit.</div></div>
+      <div class="c-card"><div class="c-name">DAS Private Jets</div><div class="c-ind">Luftfahrt / Dienstleistung</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Aufbau einer konstanten Sales-Pipeline</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Exklusive Anfragen im High-Ticket-Bereich</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Kontinuierliches Unternehmenswachstum</span></div></div><div class="c-ctx">Umsatzsteigerung durch gezielte Lead-Generierung.</div></div>
+      <div class="c-card"><div class="c-name">G. Staehle GmbH & Co. KG</div><div class="c-ind">Maschinenbau / Industrie</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Über 62 B2B-Anfragen in 3 Monaten</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Planbare Auslastung der Produktion</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Senkung der CPL um 40%</span></div></div><div class="c-ctx">Konstanter Strom an hochwertigen B2B-Anfragen.</div></div>
     </div>
   </div>
+  
   <!-- Mobile fallback: static grid -->
   <div class="cases-mobile">
     <div class="cases-mobile-grid">
-      <div class="c-card"><div class="c-name">Sidla & Schönberger</div><div class="c-ind">Bau / Spezialtiefbau</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>51 B2B-Anfragen in nur 21 Tagen</span></div></div><div class="c-ctx">Hochpreisige Projekte im Süddeutschen Raum gesucht.</div></div>
-      <div class="c-card"><div class="c-name">G. Staehle GmbH</div><div class="c-ind">Maschinenbau / Industrie</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Stetiger Fluss an qualifizierten Anfragen</span></div></div><div class="c-ctx">Vorherige Agentur lieferte Leads ohne gewünschte Qualität.</div></div>
+      <div class="c-card"><div class="c-name">G. Staehle GmbH & Co. KG</div><div class="c-ind">Maschinenbau / Industrie</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Über 62 B2B-Anfragen in 3 Monaten</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Planbare Auslastung der Produktion</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Senkung der CPL um 40%</span></div></div><div class="c-ctx">Konstanter Strom an hochwertigen B2B-Anfragen.</div></div>
+      <div class="c-card"><div class="c-name">DAS Private Jets</div><div class="c-ind">Luftfahrt / Dienstleistung</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Aufbau einer konstanten Sales-Pipeline</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Exklusive Anfragen im High-Ticket-Bereich</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Kontinuierliches Unternehmenswachstum</span></div></div><div class="c-ctx">Umsatzsteigerung durch gezielte Lead-Generierung.</div></div>
+      <div class="c-card"><div class="c-name">Bischof+Klein</div><div class="c-ind">Verpackung / Industrie</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Konstante Generierung qualifizierter Leads</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Digitalisierung des Vertriebsprozesses</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Messbare Umsatzsteigerung</span></div></div><div class="c-ctx">Nachhaltige B2B-Leadgenerierung.</div></div>
+      <div class="c-card"><div class="c-name">JURA Gastro</div><div class="c-ind">Gastronomie / B2B</div><div class="c-results"><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Leadgenerierung für Kaffeevollautomaten</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Automatisierung der Vorqualifizierung</span></div><div class="c-res"><div class="c-chk"><i data-lucide="check"></i></div><span>Steigerung der Abschlussrate</span></div></div><div class="c-ctx">Effiziente Neukundengewinnung im B2B.</div></div>
     </div>
   </div>
 </section>
@@ -634,7 +683,7 @@
 <!-- REVIEWS -->
 <section class="reviews reveal">
   <div class="container-wide">
-    <p class="s-label text-center">Erfahrungen</p>
+    <p class="s-label text-center">Echte Bewertungen, die für uns sprechen</p>
     <h2 class="s-heading text-center">Das sagen Entscheider über die Zusammenarbeit</h2>
     <div class="reviews-grid">
       <div class="r-card">
@@ -651,6 +700,22 @@
         <div class="r-meta">
           <img src="https://onecdn.io/media/70918ef9-21e0-4c0b-85b8-79634631d04a/preview" alt="Logex" class="r-logo">
           <div><div class="r-company">Logex System GmbH</div><div class="r-industry">Recycling & Entsorgung</div></div>
+        </div>
+      </div>
+      <div class="r-card">
+        <div class="r-stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+        <p class="r-text">„Wir haben mit AS Marketing eine B2B-Kampagne für unsere Türlösungen gestartet und waren sehr überrascht, wie viele qualifizierte Anfragen wir in so kurzer Zeit erhalten haben. Der ROI war bereits nach dem ersten Monat extrem positiv."</p>
+        <div class="r-meta">
+          <img src="https://onecdn.io/media/7241f1fd-a6c8-4138-8c52-2da6075a5db0/preview" alt="FRITZ" class="r-logo">
+          <div><div class="r-company">FRITZ Tür + Tor GmbH</div><div class="r-industry">Türlösungen & Tortechnik</div></div>
+        </div>
+      </div>
+      <div class="r-card">
+        <div class="r-stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+        <p class="r-text">„Besonders hervorzuheben: die hohe Qualität der Lead-Vorqualifizierung und die schnelle Reaktionszeit des Teams. Wir haben jetzt endlich einen planbaren Prozess, um neue B2B-Kunden zu gewinnen. Wir empfehlen AS Marketing uneingeschränkt weiter!"</p>
+        <div class="r-meta">
+          <img src="https://onecdn.io/media/0369de81-9deb-438e-86ec-0a4aeac20f7b/preview" alt="Fluckinger" class="r-logo">
+          <div><div class="r-company">Fluckinger Transport GmbH</div><div class="r-industry">Logistik & Transport</div></div>
         </div>
       </div>
     </div>
@@ -696,14 +761,31 @@
 
 <!-- DECIDE -->
 <section class="decide reveal" id="bewerbung">
-  <div class="container">
-    <h2>Bereit für planbares Wachstum?</h2>
-    <p>Füllen Sie das kurze Formular aus (dauert 60 Sekunden). Wir prüfen gemeinsam, ob digitale Neukundengewinnung für Ihr Unternehmen Sinn macht. Und wenn nicht, sagen wir Ihnen das auch.</p>
+  <div class="decide-box">
+    <div class="decide-text">
+      <h2>Klingt gut, aber funktioniert das auch für mein Unternehmen?</h2>
+      <p class="d-sub">In einem kostenlosen, 15-minütigen Erstgespräch finden wir genau das heraus. Wir analysieren Ihre aktuelle Situation und prüfen, ob und wie wir Ihnen helfen können.</p>
+      
+      <p class="d-head">Was Sie im Gespräch erwartet:</p>
+      <ul class="decide-list">
+        <li><i data-lucide="check-circle"></i> Ehrliches Feedback zu Ihrem aktuellen Setup</li>
+        <li><i data-lucide="check-circle"></i> Klarheit darüber, ob unsere Methode für Sie Sinn macht</li>
+        <li><i data-lucide="check-circle"></i> Kein aufdringliches Verkaufsgespräch</li>
+      </ul>
+      
+      <!-- Button der zum Formular-Start scrollt/aktiviert -->
+      <a href="#form-scroll-target" class="cta-main" onclick="document.getElementById('form-scroll-target').scrollIntoView({behavior:'smooth',block:'start'}); return false;">Jetzt Erstgespräch vereinbaren</a>
+    </div>
+    
+    <div class="decide-img">
+      <!-- Platzhalter für das Foto aus dem Screenshot (Samuel am Schreibtisch) -->
+      <img src="https://via.placeholder.com/600x600/f5f5f5/555?text=Bild+Samuel" alt="Samuel Schmid">
+    </div>
   </div>
 </section>
 
 <!-- FORM -->
-<section class="form-s">
+<section class="form-s" id="form-scroll-target">
   <div class="container">
     <div class="form-c">
       <div class="progress">
