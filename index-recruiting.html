@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/css/intlTelInput.css">
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/js/intlTelInput.min.js"></script>
 <style>
   :root {
     --red: #E52428;
@@ -292,6 +294,23 @@
   }
   .fg input::placeholder, .fg textarea::placeholder { color:var(--text-light); }
   .fg input:focus, .fg select:focus, .fg textarea:focus { border-color:var(--red); }
+
+  /* intl-tel-input overrides */
+  .iti { width:100%; }
+  .iti .iti__tel-input {
+    width:100%; background:var(--card-alt); border:1px solid var(--border-strong); border-radius:8px;
+    padding:13px 16px 13px 52px; font-family:var(--font); font-size:15px; color:var(--text); outline:none; transition:border-color 0.3s;
+    height:auto;
+  }
+  .iti .iti__tel-input:focus { border-color:var(--red); }
+  .iti .iti__tel-input::placeholder { color:var(--text-light); }
+  .iti--separate-dial-code .iti__selected-country { border-radius:8px 0 0 8px; background:transparent; }
+  .iti__country-container { left:0; }
+  .iti__selected-country-primary { padding:0 8px 0 14px; }
+  .iti__arrow { border-top-color:var(--text-light); }
+  .iti__dropdown-content { font-family:var(--font); border-radius:8px; border:1px solid var(--border-strong); box-shadow:0 8px 30px rgba(0,0,0,0.1); }
+  .iti__search-input { font-family:var(--font); font-size:14px; border-radius:6px; }
+
   .fr { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
   @media(max-width:480px){ .fr{grid-template-columns:1fr;} }
 
@@ -737,7 +756,7 @@
           <div class="sd">Bitte geben Sie Ihre Kontaktdaten ein, damit wir Sie erreichen können.</div>
           <div class="fr"><div class="fg"><label>Vorname *</label><input type="text" placeholder="Max" id="fn"></div><div class="fg"><label>Nachname *</label><input type="text" placeholder="Mustermann" id="ln"></div></div>
           <div class="fg"><label>E-Mail-Adresse *</label><input type="email" placeholder="max@firma.de" id="em"></div>
-          <div class="fg"><label>Handynummer *</label><input type="tel" placeholder="+49 ..." id="ph"></div>
+          <div class="fg"><label>Handynummer *</label><input type="tel" id="ph"></div>
           <div class="fn"><div></div><button class="bn" onclick="ns(2)">Weiter zu Schritt 2 <i data-lucide="arrow-right" style="width:16px;height:16px"></i></button></div>
         </div>
         <!-- Step 2 -->
@@ -828,18 +847,29 @@ function toggleFaq(btn){
 }
 
 // Form
+const iti = intlTelInput(document.getElementById('ph'), {
+  initialCountry: 'de',
+  preferredCountries: ['de','at','ch'],
+  separateDialCode: true,
+  autoPlaceholder: 'aggressive',
+  formatAsYouType: true,
+  countrySearch: true,
+  loadUtilsOnInit: 'https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/js/utils.js'
+});
+
 let cur=1;
 function up(){for(let i=1;i<=4;i++){const c=document.getElementById('pc'+i);c.classList.remove('active','done');if(i<cur)c.classList.add('done');if(i===cur)c.classList.add('active');}for(let i=1;i<=3;i++){document.getElementById('pl'+i).classList.toggle('active',i<cur);}}
 function ss(n){document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));document.getElementById('step'+n).classList.add('active');lucide.createIcons();}
 function v(id){return document.getElementById(id)?.value?.trim()||'';}
+function getPhone(){return iti.getNumber()||'';}
 function sh(){const b=document.querySelector('.step.active .bn');if(!b)return;b.style.animation='shake 0.4s';setTimeout(()=>b.style.animation='',400);}
 function ns(n){
-  if(cur===1&&(!v('fn')||!v('ln')||!v('em')||!v('ph'))){sh();return;}
+  if(cur===1&&(!v('fn')||!v('ln')||!v('em')||!getPhone())){sh();return;}
   if(cur===2&&!v('co')){sh();return;}
   if(cur===3){
     if(!document.querySelector('.ro.sel')){sh();return;}
     const base='https://calendly.com/as-marketing-allgaeu/erstgespraech';
-    const p=new URLSearchParams({hide_gdpr_banner:'1',name:v('fn')+' '+v('ln'),email:v('em'),a1:v('ph'),a2:v('co')});
+    const p=new URLSearchParams({hide_gdpr_banner:'1',name:v('fn')+' '+v('ln'),email:v('em'),a1:getPhone(),a2:v('co')});
     document.getElementById('calF').src=base+'?'+p.toString();
   }
   cur=n;up();ss(n);
