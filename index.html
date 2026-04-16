@@ -189,9 +189,10 @@ fbq('track', 'PageView');
   /* ── Trust Bar ── */
   .trust-bar { padding:40px 0; background:var(--bg); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
   .trust-intro { font-size:12px; color:var(--text-light); text-transform:uppercase; letter-spacing:2px; font-weight:600; margin-bottom:24px; }
-  .trust-logos { display:flex; align-items:center; justify-content:center; gap:40px; flex-wrap:wrap; opacity:0.6; transition: opacity 0.3s; }
+  .trust-logos { display:flex; align-items:center; justify-content:center; gap:40px; flex-wrap:wrap; opacity:0.55; transition: opacity 0.3s; }
   .trust-logos:hover { opacity: 1; }
-  .trust-logos span { font-weight:800; font-size:16px; color:var(--text); white-space:nowrap; letter-spacing: -0.5px;}
+  .trust-logos img { height:38px; width:auto; max-width:140px; object-fit:contain; filter:grayscale(100%); transition:filter 0.3s; display:block; }
+  .trust-logos:hover img { filter:grayscale(0%); }
 
   /* ── Problem ── */
   .problem { padding:120px 0; background:var(--white); }
@@ -538,14 +539,14 @@ fbq('track', 'PageView');
   <div class="container-wide text-center">
     <p class="trust-intro">Über 200 Unternehmen vertrauen uns</p>
     <div class="trust-logos">
-      <span>Sirio Pharma</span>
-      <span>ROMA KG</span>
-      <span>Leonhard Weiss</span>
-      <span>ETO Gruppe</span>
-      <span>Fluckinger</span>
-      <span>Bischof+Klein</span>
-      <span>Zugspitzbahn</span>
-      <span>DAS Private Jets</span>
+      <img src="assets/images/logos/sirio-pharma.jpg" alt="Sirio Pharma">
+      <img src="assets/images/logos/roma-kg.png" alt="ROMA KG">
+      <img src="assets/images/logos/leonhard-weiss.svg" alt="Leonhard Weiss">
+      <img src="assets/images/logos/eto-gruppe.png" alt="ETO Gruppe">
+      <img src="assets/images/logos/fluckinger.svg" alt="Fluckinger">
+      <img src="assets/images/logos/bischof-klein.svg" alt="Bischof+Klein">
+      <img src="assets/images/logos/zugspitzbahn.svg" alt="Zugspitzbahn">
+      <img src="assets/images/logos/das-private-jets.svg" alt="DAS Private Jets">
     </div>
   </div>
 </section>
